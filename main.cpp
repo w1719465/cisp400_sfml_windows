@@ -7,13 +7,23 @@ using namespace sf;
 using namespace std;
 int main()
 {
-	sf::View view(sf::FloatRect(0.f, 0.f, 1920.f, 1080.f));
+	float width = 1920.0f;
+	float height = 1080.0f;
+	//width = 800; height = 600;
+	sf::View view(sf::FloatRect(0.f, 0.f, width, height));
 	// Create a video mode object
-	VideoMode vm(1920, 1080);
+	VideoMode vm(width, height);
 	// Create and open a window for the game
-	RenderWindow window(vm, "Chaos Game!!", Style::Fullscreen);
+	RenderWindow window(vm, "Chaos Game!!", Style::Default);
 	vector<Vector2f> vertices;
 	vector<Vector2f> points;
+
+	Font f;
+	if (!f.loadFromFile("C:\\Users\\w1622454\\source\\repos\\ChaosGameStarter\\fonts\\KOMIKAP_.ttf")) cout << "failed to load font..." << endl;
+	Text instructions;
+	instructions.setFont(f);
+	instructions.setCharacterSize(24);
+	instructions.setFillColor(Color::Green);
 
 	while (window.isOpen())
 	{
@@ -51,6 +61,19 @@ int main()
 			Update the scene
 		*****************************************/
 		//generate interior points
+
+		ostringstream oss;
+		oss << "Click stuff and \n" << "I will write stuff";
+		instructions.setString(oss.str());
+
+		FloatRect textRect = instructions.getLocalBounds();
+		instructions.setOrigin(textRect.left +
+			textRect.width / 2.0f,
+			textRect.top +
+			textRect.height / 2.0f);
+
+		instructions.setPosition(width / 2, 200);
+
 		/*
 		****************************************
 		Draw the scene
@@ -68,7 +91,7 @@ int main()
 			r.setPosition(Vector2f{ vertices.at(i).x, vertices.at(i).y });
 			window.draw(r);
 		}
-
+		window.draw(instructions);
 		// Show everything we just drew
 		window.display();
 	}
