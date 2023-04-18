@@ -7,10 +7,9 @@ using namespace sf;
 using namespace std;
 int main()
 {
-	float width = 1920.0f;
-	float height = 1080.0f;
+	float width = sf::VideoMode::getDesktopMode().width;
+	float height = sf::VideoMode::getDesktopMode().height;
 	//width = 800; height = 600;
-	sf::View view(sf::FloatRect(0.f, 0.f, width, height));
 	// Create a video mode object
 	VideoMode vm(width, height);
 	// Create and open a window for the game
@@ -19,7 +18,7 @@ int main()
 	vector<Vector2f> points;
 
 	Font f;
-	if (!f.loadFromFile("C:\\Users\\w1622454\\source\\repos\\ChaosGameStarter\\fonts\\KOMIKAP_.ttf")) cout << "failed to load font..." << endl;
+	if (!f.loadFromFile("./fonts/KOMIKAP_.ttf")) cout << "failed to load font..." << endl;
 	Text instructions;
 	instructions.setFont(f);
 	instructions.setCharacterSize(24);
@@ -72,14 +71,13 @@ int main()
 			textRect.top +
 			textRect.height / 2.0f);
 
-		instructions.setPosition(width / 2, 200);
+		instructions.setPosition(width / 2, 100);
 
 		/*
 		****************************************
 		Draw the scene
 		****************************************
 		*/
-		window.setView(view);
 		// Clear everything from the last run frame
 		window.clear();
 		// Draw our game scene here
