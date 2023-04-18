@@ -71,7 +71,7 @@ int main()
 			textRect.top +
 			textRect.height / 2.0f);
 
-		instructions.setPosition(width / 2, 100);
+		instructions.setPosition(width / 2, 50);
 
 		/*
 		****************************************
