@@ -9,6 +9,7 @@ int main()
 {
 	float width = sf::VideoMode::getDesktopMode().width;
 	float height = sf::VideoMode::getDesktopMode().height;
+	View mainView(FloatRect(0.0f,0.0f,width, height));
 	//width = 800; height = 600;
 	// Create a video mode object
 	VideoMode vm(width, height);
@@ -45,7 +46,13 @@ int main()
 					std::cout << "the right button was pressed" << std::endl;
 					std::cout << "mouse x: " << event.mouseButton.x << std::endl;
 					std::cout << "mouse y: " << event.mouseButton.y << std::endl;
-					vertices.push_back({(float)event.mouseButton.x, (float)event.mouseButton.y});
+
+					// get the current mouse position in the window
+					sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
+
+					// convert it to world coordinates
+					sf::Vector2f worldPos = window.mapPixelToCoords(pixelPos, mainView);
+					vertices.push_back(worldPos);
 				}
 			}
 
@@ -62,7 +69,7 @@ int main()
 		//generate interior points
 
 		ostringstream oss;
-		oss << "Click stuff and \n" << "I will write stuff";
+		oss << "Click stuff and " << endl << "I will write stuff";
 		instructions.setString(oss.str());
 
 		FloatRect textRect = instructions.getLocalBounds();
@@ -82,6 +89,7 @@ int main()
 		window.clear();
 		// Draw our game scene here
 		//RectangleShape r{ Vector2f{4,4} }; ///width, height.  Center uninitialized
+		window.setView(mainView);
 		CircleShape r(2);
 		r.setFillColor(Color::Magenta);
 		for (size_t i = 0; i < vertices.size(); i++)
