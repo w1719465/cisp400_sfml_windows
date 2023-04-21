@@ -3,18 +3,24 @@
 #include <cstdlib>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <windows.h>
+#include <winuser.h>
 using namespace std;
 int main()
 {
 	// Create a video mode object
-	VideoMode vm(1920, 1080);
+    int xx = GetSystemMetrics(61);
+    int yy = GetSystemMetrics(62);
+
+	VideoMode vm(xx/2, yy/2);
 	// Create and open a window for the game
 	RenderWindow window(vm, "Pong", Style::Default);
 	int score = 0;
 	int lives = 3;
 
 	// Create a bat at the bottom center of the screen
-	Bat bat(1920 / 2, 1080 - 20);
+	//Bat bat(1920 / 2, 1080 - 20);
+	Bat bat(xx / 2 -30 , yy/2 -90);
 	// We will add a ball in the next chapter
 	// Create a Text object called HUD
 	Text hud;
